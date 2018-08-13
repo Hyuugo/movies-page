@@ -1,8 +1,63 @@
-doctype html
 html(lang='en')
   head
     title= title
-    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
-    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous")
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css' integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous')
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous")
+    link(rel='stylesheet' href='nouislider.min.css')
+    link(rel='stylesheet' href='style.css')
   body
     div(class='container')
+      div(class='row')
+        div(class='col-3' style="border-right: 1px solid #eee; padding-right: 0;")
+          div(class="card")
+            div(class="card-header" id="heading_1")
+              button(class="btn btn-link" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" aria-controls="collapse_1") Year
+            div(id="collapse_1" class="collapse show" aria-labelledby="heading_1")
+              div(class="card-body" style='height: 8vh')
+                div(id="slider")
+          div(class="card")
+            div(class="card-header" id="heading_2")
+              h5(class="mb-0")
+                button(class="btn btn-link" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" aria-controls="collapse_2") Genre
+            div(id="collapse_2" class="collapse show" aria-labelledby="heading_2")
+              div(class="card-body")
+                div(class="list-group" id="genreFilter")
+                  each genre, index in genres
+                    a(class="list-group-item list-group-item-action" v-on:click='genreFilter("' + genre + '", ' + index + ')' v-bind:class="{ active: selected.includes("+ index +") }")= genre
+          div(class="card")
+            div(class="card-header" id="heading_3")
+              h5(class="mb-0")
+                button(class="btn btn-link" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" aria-controls="collapse_3") Country
+
+            div(id="collapse_3" class="collapse show" aria-labelledby="heading_3")
+              div(class="card-body")
+                div(class="list-group" id="countryFilter")
+                  each country, index in countries
+                    a(class="list-group-item list-group-item-action" v-on:click='countryFilter("' + country + '", ' + (index + 1) + ')' v-bind:class="{ active: selected.includes("+ (index + 1) +") }")= country    
+        div(class='col-9')
+          div(class='row' style="border-bottom: 1px solid #eee")
+            div(class="input-group col-12" style="margin-top: 1vh; margin-left: 2vw; margin-bottom: .7vh")
+              input(class="form-control py-2 border-right-0 border" type="search" placeholder="Search by title" @keyup="addToTitleFilter()" id="titleFilter")
+              span(class="input-group-append")
+                button(class="btn btn-outline-secondary border-left-0 border" type="button")
+                  i(class="fa fa-search")
+          div(class='row' data-bind="foreach: movies_list" id="movies_list")
+            div(class="col-4" v-for="movie in movies" id="movies_list") 
+                div(class="card" style="width: 1wv; margin: 1vw;")
+                  div(class="card-content")
+                    img(class="card-img-top img-fluid" src="noimg.jpg" alt="Card image cap")
+                    div(class="card-body")
+                      p(class="card-text") {{ movie.title }}    
+                        small {{ movie.release_date }}
+          hr
+          div(class='row')
+            div(class="col-12")
+              button(type="button" class="btn btn-light btn-lg btn-block" id="loadMoreMovies" style="background: none; border: none;" v-on:click="loadMovies") More...
+  script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy' crossorigin='anonymous')
+  script(src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js')
+  script(src='nouislider.min.js')
+  script(src='script.js')
+        
+          

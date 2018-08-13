@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Hyuugo/movies-page#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "pg-promise": "^8.4.5",
     "pug": "^2.0.3"
   }
 }

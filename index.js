@@ -48,7 +48,7 @@ app.get('/search', function (req, res, next) {
     if (req.query.movie_name) {
         if (queryStr.length > 0)
             queryStr += 'AND ';
-        queryStr += 'title LIKE \'%' + req.query.movie_name.toLowerCase() + '%\' ';
+        queryStr += 'title SIMILAR TO \'%' + req.query.movie_name + '%\' ';
     }
 
     if (req.query.countries) {

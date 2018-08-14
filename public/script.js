@@ -49,23 +49,27 @@ let movies_list = new Vue({
         filterMovies: function () {
             let queryStr = "";
 
-            if(this.loadMore == false)
+            if (this.loadMore == false)
                 this.start = 0;
 
             if (movies_list.titleFilter.length > 0)
                 queryStr += 'movie_name=' + this.titleFilter + '&';
-                
+
             if (movies_list.yearFilter.length > 0)
                 queryStr += 'release_date_start=' + movies_list.yearFilter[0] + '&release_date_end=' + movies_list.yearFilter[1] + '&';
-                
+
             if (movies_list.countryFilter.length > 0)
                 queryStr += 'countries=' + movies_list.countryFilter.join() + '&';
-                
+
             if (movies_list.genreFilter.length > 0)
                 queryStr += 'genres=' + movies_list.genreFilter.join() + '&';
-                
+
             if (queryStr.length > 0) {
                 $.get('/search?' + queryStr + '&start=' + this.start + '&end=' + this.end, function (data) {
+                    $.each(data, function (index, value) {
+                        data[index].poster_path = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + data[index].poster_path;
+                        data[index].release_date = parseDate(data[index].release_date);
+                    });
                     if (!movies_list.loadMore)
                         movies_list.movies = data;
                     else {
@@ -73,14 +77,14 @@ let movies_list = new Vue({
                             movies_list.movies.push(data[index]);
                         });
                     }
-
-                    $.each(data, function (index, value) {
-                        movies_list.movies[movies_list.movies.length - 1].release_date = parseDate(movies_list.movies[movies_list.movies.length - 1].release_date);
-                    });
                 });
             }
             else {
                 $.get('/get?start=' + this.start + '&end=' + this.end, function (data) {
+                    $.each(data, function (index, value) {
+                        data[index].poster_path = 'https://image.tmdb.org/t/p/w600_and_h900_bestv2/' + data[index].poster_path;
+                        data[index].release_date = parseDate(data[index].release_date);
+                    });
                     if (!movies_list.loadMore)
                         movies_list.movies = data;
                     else {
@@ -88,13 +92,10 @@ let movies_list = new Vue({
                             movies_list.movies.push(data[index]);
                         });
                     }
-
-                    $.each(data, function (index, value) {
-                        movies_list.movies[movies_list.movies.length - 1].release_date = parseDate(movies_list.movies[movies_list.movies.length - 1].release_date);
-                    });
-                    
                 });
             }
+
+            
         }
     }
 })

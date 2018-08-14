@@ -93,7 +93,7 @@ app.get('/get', function (req, res, next) {
     if (req.query.end)
         end = "LIMIT " + req.query.end;
 
-    db.any('SELECT * FROM movies_metadata ' + start + ' ' + end, [true])
+    db.any('SELECT * FROM movies_metadata ORDER BY release_date ' + start + ' ' + end, [true])
         .then(data => {
             res.json(data);
         })

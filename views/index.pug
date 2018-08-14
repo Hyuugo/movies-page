@@ -45,7 +45,7 @@ html(lang='en')
             div(class="col-4" v-for="movie in movies" id="movies_list") 
                 div(class="card" style="width: 1wv; margin: 1vw;")
                   div(class="card-content")
-                    img(class="card-img-top img-fluid" src="noimg.jpg" alt="Card image cap")
+                    img(class="card-img-top img-fluid" v-bind:src="movie.poster_path" alt="poster_path") 
                     div(class="card-body")
                       p(class="card-text") {{ movie.title }}    
                         small {{ movie.release_date }}

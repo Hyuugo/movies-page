@@ -53,7 +53,7 @@ let movies_list = new Vue({
                 this.start = 0;
 
             if (movies_list.titleFilter.length > 0)
-                queryStr += 'movie_name=' + this.titleFilter + '&';
+                queryStr += 'movie_name=' + this.titleFilter.toLowerCase() + '&';
 
             if (movies_list.yearFilter.length > 0)
                 queryStr += 'release_date_start=' + movies_list.yearFilter[0] + '&release_date_end=' + movies_list.yearFilter[1] + '&';
